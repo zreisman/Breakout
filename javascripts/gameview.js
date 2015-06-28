@@ -35,7 +35,7 @@
     //          break;
     //
     //    }
-     });
+    //  });
 
   };
 
@@ -50,7 +50,7 @@
         gameView.game.draw(gameView.ctx);
         if (gameView.game.detectLoss()) {
           gameView.stop();
-        };
+        }
       }, 1000 / Breakout.Game.FPS
     );
 

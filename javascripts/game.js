@@ -24,21 +24,22 @@
     ctx.stroke();
   };
 
+
   Game.prototype.detectCollision = function() {
     var ball = Game.ball;
     var paddle = Game.paddle;
     if (ball.position[1] <= 55 + ball.radius) {
-      ball.vector[1] *= -1;
+      ball.bounce('xAxis');
     } else if (
       ((ball.position[1] >= paddle.position[1]) && (ball.position[1] <= paddle.position[1] + 5)) &&
          (ball.position[0] > paddle.position[0] &&
           (ball.position[0] < paddle.position[0] + paddle.paddleSize))
       ) {
-      ball.vector[1] *= -1;
+      ball.bounce('xAxis');
     } else if (ball.position[0] <= 55) {
-      ball.vector[0] *= -1;
+      ball.bounce('yAxis');
     } else if (ball.position[0] >= Game.DIM_X - 55) {
-      ball.vector[0] *= -1;
+      ball.bounce('yAxis');
     }
   };
 
