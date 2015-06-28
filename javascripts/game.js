@@ -35,7 +35,7 @@
          (ball.position[0] > paddle.position[0] &&
           (ball.position[0] < paddle.position[0] + paddle.paddleSize))
       ) {
-      ball.bounce('xAxis');
+      ball.bounce('xAxis', ((ball.position[0] - paddle.position[0]) - (paddle.paddleSize / 2)));
     } else if (ball.position[0] <= 55) {
       ball.bounce('yAxis');
     } else if (ball.position[0] >= Game.DIM_X - 55) {

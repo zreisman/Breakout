@@ -7,32 +7,33 @@
   var ball = Breakout.ball = function () {
     this.position = [200, 200];
     this.radius = 5;
-    this.velocity = 5;
+    this.velocity = 10;
     this.trajectory = -45;
   };
 
-  ball.prototype.bounce = function(axis, paddleVelocity) {
+  ball.prototype.bounce = function(axis, deflection) {
+    console.log("deflection is " + deflection);
     if (axis === 'xAxis') {
       this.trajectory *= -1;
     } else if(axis === 'yAxis') {
-      this.trajectory += 90;
+      this.trajectory = 90 + (90 - this.trajectory);
     }
-    if (paddleVelocity) {
-      vector = this.modifyTrajectory(vector, paddleVelocity);
+    this.normalizeTrajectory();
+    if (deflection && this.trajectory >= 225 && this.trajectory <= 315) {
+      deflection_value = Math.floor(deflection / 3);
+      console.log('deflecting' + deflection_value);
+      this.trajectory += deflection_value;
     }
+      console.log(this.trajectory);
   };
 
-
-  // ball.prototype.modifyTrajectory = function(vector, speed) {
-  //   if
-  //   if (Math.abs(speed) > 10) {
-  //     this.vector[0] - Math.floor(speed / 3);
-  //   }
-  //
-  //   var newX = this.vector[0] - xMod;
-  //   var newY = Math.sqrt(c - (newX * newX));
-  //   this.vector = [newX, newY];
-  // };
+  ball.prototype.normalizeTrajectory = function() {
+    if (this.trajectory > 360) {
+      this.trajectory -= 360;
+    } else if (this.trajectory < 1) {
+      this.trajectory += 360;
+    }
+  };
 
   ball.prototype.toRadians = function(angle) {
     return angle * (Math.PI / 180);
