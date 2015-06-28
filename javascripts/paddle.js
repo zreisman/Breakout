@@ -7,12 +7,12 @@
     this.paddleSize = 200;
     this.position = paddleStart;
     this.position[0] -= (this.paddleSize / 2)
-    this.velocity = 15;
   };
 
-  Breakout.paddle.prototype.move = function(vector) {
-    this.position[0] += vector[0] * this.velocity;
-    this.position[1] += vector[1] * this.velocity;
+  Breakout.paddle.prototype.move = function(newX) {
+    this.lastPos = this.position[0];
+    this.position[0] = newX - (this.paddleSize / 2);
+    this.velocity();
   };
 
   Breakout.paddle.prototype.draw = function (ctx) {
@@ -23,6 +23,10 @@
     ctx.rect(this.position[0], this.position[1], this.paddleSize, 20);
     ctx.closePath();
     ctx.fill();
+  };
+
+  Breakout.paddle.prototype.velocity = function() {
+    console.log(Math.abs(this.position[0] - this.lastPos));
   };
 
 })();

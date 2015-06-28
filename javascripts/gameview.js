@@ -20,19 +20,23 @@
 
   GameView.prototype.bindKeyHandlers = function() {
     var that = this;
-    $(document.body).on('keydown', function(e) {
-       switch (e.which) {
-
-         case 37:
-             Breakout.Game.paddle.move(GameView.MOVES["left"]);
-             break;
-
-         case 39:
-             Breakout.Game.paddle.move(GameView.MOVES["right"]);
-             break;
-
-       }
+    window.addEventListener('mousemove', function(e) {
+       Breakout.Game.paddle.move(e.clientX);
+    });
+    // $(document.body).on('keydown', function(e) {
+    //    switch (e.which) {
+    //
+    //      case 37:
+    //          Breakout.Game.paddle.move(GameView.MOVES["left"]);
+    //          break;
+    //
+    //      case 39:
+    //          Breakout.Game.paddle.move(GameView.MOVES["right"]);
+    //          break;
+    //
+    //    }
      });
+
   };
 
   GameView.prototype.start = function () {

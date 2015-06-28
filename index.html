@@ -23,7 +23,8 @@
      canvas.width = Breakout.Game.DIM_X;
      canvas.height = Breakout.Game.DIM_Y;
      document.body.appendChild(canvas);
-     $('canvas').addClass('FirstCanvas');
+     $('canvas').addClass('FirstCanvas').attr('id', 'first-canvas');
+
 
      var game = new Breakout.Game()
      var gameView = new Breakout.GameView(game, ctx);
