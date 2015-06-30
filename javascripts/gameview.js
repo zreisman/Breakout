@@ -10,41 +10,19 @@
 
   };
 
-  GameView.MOVES = {
-    "up": [ 0, -1],
-    "left": [-1,  0],
-    "down": [ 0,  1],
-    "right": [ 1,  0],
-  };
-
-
   GameView.prototype.bindKeyHandlers = function() {
     var that = this;
     window.addEventListener('mousemove', function(e) {
        Breakout.Game.paddle.move(e.clientX);
     });
-    // $(document.body).on('keydown', function(e) {
-    //    switch (e.which) {
-    //
-    //      case 37:
-    //          Breakout.Game.paddle.move(GameView.MOVES["left"]);
-    //          break;
-    //
-    //      case 39:
-    //          Breakout.Game.paddle.move(GameView.MOVES["right"]);
-    //          break;
-    //
-    //    }
-    //  });
-
   };
 
   GameView.prototype.start = function () {
     this.bindKeyHandlers();
     var gameView = this;
+    gameView.game.createBricks();
     this.timerId = setInterval(
       function () {
-
         gameView.game.step();
         gameView.game.detectCollision();
         gameView.game.draw(gameView.ctx);

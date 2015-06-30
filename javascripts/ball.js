@@ -6,7 +6,7 @@
 
   var ball = Breakout.ball = function () {
     this.position = [200, 200];
-    this.radius = 5;
+    this.radius = 10;
     this.velocity = 10;
     this.trajectory = -45;
   };
@@ -50,7 +50,7 @@
     ctx.fillStyle = "white";
     ctx.beginPath();
     ctx.arc(this.position[0],this.position[1],this.radius,0,2*Math.PI);
-    ctx.stroke();
+    ctx.fill();
   };
 
 })();

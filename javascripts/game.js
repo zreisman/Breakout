@@ -24,6 +24,32 @@
     ctx.stroke();
   };
 
+  Game.prototype.createBricks = function() {
+    var rows = 3;
+    var brickSize = Math.floor((Game.DIM_X - 120) / 20);
+    var startPos = 60;
+    var height = 100;
+    this.bricks = [];
+    for (var i = 1; i <= rows; i++) {
+      var row = [];
+      for(var j = 1; j < 20 - 1 + (i % 2); j++) {
+        var brick = new Breakout.Brick(brickSize, [startPos, height + i * 50]);
+        row.push(brick);
+        startPos += brickSize + 5;
+      }
+      this.bricks.push(row);
+      startPos = 60 + ((i % 2) * (brickSize / 2));
+    }
+  };
+
+  Game.prototype.drawBricks = function(ctx) {
+
+    this.bricks.forEach(function(row) {
+      row.forEach(function(brick) {
+        brick.render(ctx);
+      });
+    });
+  };
 
   Game.prototype.detectCollision = function() {
     var ball = Game.ball;
@@ -58,6 +84,7 @@
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
     this.drawWalls(ctx);
+    this.drawBricks(ctx);
     Game.paddle.draw(ctx);
 
     Game.ball.draw(ctx);
