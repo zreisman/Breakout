@@ -17,7 +17,7 @@
   Breakout.paddle.prototype.draw = function (ctx) {
 
     //draw this on the canvas
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "blue";
     ctx.beginPath();
     ctx.rect(this.position[0], this.position[1], this.paddleSize, 20);
     ctx.closePath();

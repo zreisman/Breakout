@@ -5,7 +5,7 @@
 
 
   var ball = Breakout.ball = function () {
-    this.position = [200, 200];
+    this.position = [200, 500];
     this.radius = 10;
     this.velocity = 10;
     this.trajectory = -45;
@@ -34,6 +34,8 @@
       this.trajectory += 360;
     }
   };
+
+
 
   ball.prototype.toRadians = function(angle) {
     return angle * (Math.PI / 180);

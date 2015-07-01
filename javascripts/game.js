@@ -29,6 +29,8 @@
     var brickSize = Math.floor((Game.DIM_X - 120) / 20);
     var startPos = 60;
     var height = 100;
+    this.bricksTop = height - Game.ball.radius;
+    this.bricksBottom = height + rows * 50 + (brickSize / 2);
     this.bricks = [];
     for (var i = 1; i <= rows; i++) {
       var row = [];
@@ -67,6 +69,37 @@
     } else if (ball.position[0] >= Game.DIM_X - 55) {
       ball.bounce('yAxis');
     }
+  };
+
+
+  // If the ball is within the upper and lower bounds of the bricks
+  // we will attempt to detect collisions
+  Game.prototype.startDetection = function() {
+    var ballY = Game.ball.position[1];
+    var bottom = this.bricksBottom, top = this.bricksTop;
+    if (ballY < bottom && ballY > top) {
+      this.detectBrickCollisions();
+    }
+  };
+
+
+  // Iterate through bricks and remove those the ball has collided with
+  Game.prototype.detectBrickCollisions = function() {
+    this.bricks.forEach(function(row){
+      for(var i = 0; i < row.length; i++) {
+        var result = row[i].ballIntersects(Game.ball);
+
+        if (result) {
+
+          if (result !== true) {
+            debugger;
+            Game.ball.bounce('xAxis', 0);
+          }
+
+          row.splice(i, 1);
+        }
+      }
+    });
   };
 
   Game.prototype.detectLoss = function(ctx) {

@@ -24,6 +24,7 @@
     this.timerId = setInterval(
       function () {
         gameView.game.step();
+        gameView.game.startDetection();
         gameView.game.detectCollision();
         gameView.game.draw(gameView.ctx);
         if (gameView.game.detectLoss()) {
