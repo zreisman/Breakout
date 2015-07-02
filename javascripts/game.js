@@ -24,82 +24,115 @@
     ctx.stroke();
   };
 
-  Game.prototype.createBricks = function() {
-    var rows = 3;
-    var brickSize = Math.floor((Game.DIM_X - 120) / 20);
-    var startPos = 60;
-    var height = 100;
-    this.bricksTop = height - Game.ball.radius;
-    this.bricksBottom = height + rows * 50 + (brickSize / 2);
-    this.bricks = [];
-    for (var i = 1; i <= rows; i++) {
-      var row = [];
-      for(var j = 1; j < 20 - 1 + (i % 2); j++) {
-        var brick = new Breakout.Brick(brickSize, [startPos, height + i * 50]);
-        row.push(brick);
-        startPos += brickSize + 5;
-      }
-      this.bricks.push(row);
-      startPos = 60 + ((i % 2) * (brickSize / 2));
-    }
-  };
+  // Game.prototype.createBricks = function() {
+  //   var rows = 3;
+  //   var brickSize = Math.floor((Game.DIM_X - 120) / 20);
+  //   var startPos = 60;
+  //   var height = 100;
+  //   this.bricksTop = height - Game.ball.radius;
+  //   this.bricksBottom = height + rows * 50 + (brickSize / 2);
+  //   this.bricks = [];
+  //   for (var i = 1; i <= rows; i++) {
+  //     var row = [];
+  //     for(var j = 1; j < 20 - 1 + (i % 2); j++) {
+  //       var brick = new Breakout.Brick(brickSize, [startPos, height + i * 50]);
+  //       row.push(brick);
+  //       startPos += brickSize + 5;
+  //     }
+  //     this.bricks.push(row);
+  //     startPos = 60 + ((i % 2) * (brickSize / 2));
+  //   }
+  // };
 
-  Game.prototype.drawBricks = function(ctx) {
+  // Game.prototype.drawBricks = function(ctx) {
+  //
+  //   this.bricks.forEach(function(row) {
+  //     row.forEach(function(brick) {
+  //       brick.render(ctx);
+  //     });
+  //   });
+  // };
 
-    this.bricks.forEach(function(row) {
-      row.forEach(function(brick) {
-        brick.render(ctx);
-      });
-    });
-  };
-
-  Game.prototype.detectCollision = function() {
-    var ball = Game.ball;
-    var paddle = Game.paddle;
-    if (ball.position[1] <= 55 + ball.radius) {
-      ball.bounce('xAxis');
-    } else if (
-      ((ball.position[1] >= paddle.position[1]) && (ball.position[1] <= paddle.position[1] + 5)) &&
-         (ball.position[0] > paddle.position[0] &&
-          (ball.position[0] < paddle.position[0] + paddle.paddleSize))
-      ) {
-      ball.bounce('xAxis', ((ball.position[0] - paddle.position[0]) - (paddle.paddleSize / 2)));
-    } else if (ball.position[0] <= 55) {
-      ball.bounce('yAxis');
-    } else if (ball.position[0] >= Game.DIM_X - 55) {
-      ball.bounce('yAxis');
-    }
-  };
+  // Game.prototype.detectCollision = function() {
+  //   var ball = Game.ball;
+  //   var paddle = Game.paddle;
+  //   if (ball.position[1] <= 55 + ball.radius) {
+  //     ball.bounce('xAxis');
+  //   } else if (
+  //     ((ball.position[1] >= paddle.position[1]) && (ball.position[1] <= paddle.position[1] + 5)) &&
+  //        (ball.position[0] > paddle.position[0] &&
+  //         (ball.position[0] < paddle.position[0] + paddle.paddleSize))
+  //     ) {
+  //     ball.bounce('xAxis', ((ball.position[0] - paddle.position[0]) - (paddle.paddleSize / 2)));
+  //   } else if (ball.position[0] <= 55) {
+  //     ball.bounce('yAxis');
+  //   } else if (ball.position[0] >= Game.DIM_X - 55) {
+  //     ball.bounce('yAxis');
+  //   }
+  // };
 
 
   // If the ball is within the upper and lower bounds of the bricks
   // we will attempt to detect collisions
-  Game.prototype.startDetection = function() {
-    var ballY = Game.ball.position[1];
-    var bottom = this.bricksBottom, top = this.bricksTop;
-    if (ballY < bottom && ballY > top) {
-      this.detectBrickCollisions();
-    }
-  };
+  // Game.prototype.startDetection = function() {
+  //   var ballY = Game.ball.position[1];
+  //   var bottom = this.bricksBottom, top = this.bricksTop;
+  //   if (ballY < bottom && ballY > top) {
+  //     this.detectBrickCollisions();
+  //   }
+  // };
 
+  //
+  // // Iterate through bricks and remove those the ball has collided with
+  // Game.prototype.detectBrickCollisions = function() {
+  //   var that = this;
+  //   this.bricks.forEach(function(row){
+  //     for(var i = 0; i < row.length; i++) {
+  //
+  //       var ballPath = Game.ball.futurePath();
+  //       var intersections = [];
+  //       row[i].segments.forEach(function(seg) {
+  //         var result = that.lineIntersects(seg[0], seg[1], ballPath[0], ballPath[1]);
+  //         if (result) {
+  //           intersections.push([result, seg, row[i]]);
+  //         }
+  //       });
+  //       var brick = row[i];
+  //       if (intersections.length > 0) {
+  //         var axis = intersections[0][1];
+  //         var closest = 10;  //should be speed independent
+  //         intersections.forEach(function(inter) {
+  //           distance = that.distanceBetween(inter[0], Game.ball.position);
+  //           if (distance < closest) {
+  //             var axis = inter[1];
+  //           }
+  //         });
+  //         // Bounce the ball of the axis of the closest intersection
+  //         if (axis[0][0] === axis[1][0]) {
+  //           Game.ball.bounce('xAxis', 0);
+  //         } else {
+  //           Game.ball.bounce('yAxis', 0);
+  //         }
+  //         row.splice(i, 1);
+  //       }
+  //       // Remove the brick
+  //     }
+  //       // var result = row[i].ballIntersects(Game.ball);
+  //       //
+  //       // if (result) {
+  //       //
+  //       //   if (result !== true) {
+  //       //     debugger;
+  //       //     Game.ball.bounce('xAxis', 0);
+  //       //   }
+  //       //
+  //       //   row.splice(i, 1);
+  //       // }
+  //   });
+  // };
 
-  // Iterate through bricks and remove those the ball has collided with
-  Game.prototype.detectBrickCollisions = function() {
-    this.bricks.forEach(function(row){
-      for(var i = 0; i < row.length; i++) {
-        var result = row[i].ballIntersects(Game.ball);
-
-        if (result) {
-
-          if (result !== true) {
-            debugger;
-            Game.ball.bounce('xAxis', 0);
-          }
-
-          row.splice(i, 1);
-        }
-      }
-    });
+  Game.prototype.distanceBetween = function(A, B) {
+    return Math.sqrt( Math.pow(B[0] - A[0], 2) + Math.pow(B[1] - A[1], 2));
   };
 
   Game.prototype.createBoundingBox = function(segStart, segEnd) {
@@ -156,7 +189,7 @@
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
     this.drawWalls(ctx);
-    this.drawBricks(ctx);
+    // this.drawBricks(ctx);
     Game.paddle.draw(ctx);
 
     Game.ball.draw(ctx);

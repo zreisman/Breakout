@@ -7,12 +7,11 @@
   var ball = Breakout.ball = function () {
     this.position = [200, 500];
     this.radius = 10;
-    this.velocity = 10;
+    this.velocity = 5;
     this.trajectory = -45;
   };
 
   ball.prototype.bounce = function(axis, deflection) {
-    console.log("deflection is " + deflection);
     if (axis === 'xAxis') {
       this.trajectory *= -1;
     } else if(axis === 'yAxis') {
@@ -35,10 +34,17 @@
     }
   };
 
-  ball.prototype.path = function() {
-
+  ball.prototype.futurePath = function() {
+    var stepResult = this.step();
+    var xMod = stepResult[0], yMod = stepResult[1];
+    return [[this.position[0], this.position[1]], [this.position[0] + xMod, this.position[1] + yMod]];
   };
 
+  ball.prototype.step = function() {
+    var xMod = Math.cos(this.toRadians(this.trajectory)) * this.velocity;
+    var yMod = Math.sin(this.toRadians(this.trajectory)) * this.velocity;
+    return [xMod, yMod];
+  };
 
 
   ball.prototype.toRadians = function(angle) {
@@ -46,8 +52,10 @@
   };
 
   ball.prototype.move = function() {
-    this.position[0] += Math.cos(this.toRadians(this.trajectory)) * this.velocity;
-    this.position[1] += Math.sin(this.toRadians(this.trajectory)) * this.velocity;
+    var stepResult = this.step();
+    var xMod = stepResult[0], yMod = stepResult[1];
+    this.position[0] += xMod;
+    this.position[1] += yMod;
   };
 
   Breakout.ball.prototype.draw = function (ctx) {

@@ -11,6 +11,11 @@
     this.vertB = [this.vertA[0] + size, this.vertA[1]];
     this.vertC = [this.vertA[0] + size, this.vertA[1] + size/2];
     this.vertD = [this.vertA[0], this.vertA[1] + this.brickSize[1]];
+    this.segments = [[this.vertA, this.vertB],
+                    [this.vertB, this.vertC],
+                    [this.vertC, this.vertD],
+                    [this.vertD, this.vertA]
+                    ];
   };
 
 
@@ -44,13 +49,9 @@
   };
 
   Brick.prototype.ballIntersects = function(ball) {
-    var segments = [[this.vertA, this.vertB],
-                    [this.vertB, this.vertC],
-                    [this.vertC, this.vertD],
-                    [this.vertD, this.vertA]
-                    ];
+
     var that = this;
-    segments.forEach(function(seg) {
+    this.segments.forEach(function(seg) {
       if (that.lineIntersectsCircle(ball, seg[0], seg[1])) {
         return seg;
       }

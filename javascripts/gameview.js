@@ -20,13 +20,13 @@
   GameView.prototype.start = function () {
     this.bindKeyHandlers();
     var gameView = this;
-    gameView.game.createBricks();
+    // gameView.game.createBricks();
     this.timerId = setInterval(
       function () {
-        
+
         gameView.game.step();
-        gameView.game.startDetection();
-        gameView.game.detectCollision();
+        // gameView.game.startDetection();
+        // gameView.game.detectCollision();
         gameView.game.draw(gameView.ctx);
         if (gameView.game.detectLoss()) {
           gameView.stop();
