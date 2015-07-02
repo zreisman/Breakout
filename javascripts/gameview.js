@@ -23,6 +23,7 @@
     gameView.game.createBricks();
     this.timerId = setInterval(
       function () {
+        
         gameView.game.step();
         gameView.game.startDetection();
         gameView.game.detectCollision();

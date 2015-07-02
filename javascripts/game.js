@@ -102,6 +102,31 @@
     });
   };
 
+  Game.prototype.createBoundingBox = function(segStart, segEnd) {
+    var xMin = Math.min(segStart[0], segEnd[0]);
+    var yMax = Math.max(segStart[1], segEnd[1]);
+    var yMin = Math.min(segStart[1], segEnd[1]);
+    var xMax = Math.max(segStart[0], segEnd[0]);
+    debugger
+    var upperLeft = [xMin, yMax];
+    var lowerRight = [xMax, yMin];
+    return [upperLeft, lowerRight];
+  };
+
+  Game.prototype.boundingIntersects = function(seg1A, seg1B, seg2A, seg2B) {
+    var a = this.createBoundingBox(seg1A, seg1B);
+    var b = this.createBoundingBox(seg2A, seg2B);
+    debugger;
+    return (a[0][0] <= b[1][0] &&
+            a[1][0] >= b[0][0] &&
+            a[0][1] >= b[1][1] &&
+            a[1][1] <= b[0][1]);
+  };
+
+
+
+
+
   Game.prototype.detectLoss = function(ctx) {
     if (Game.ball.position[1] > Game.DIM_Y) {
       return true;
