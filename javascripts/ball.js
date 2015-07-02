@@ -35,6 +35,10 @@
     }
   };
 
+  ball.prototype.path = function() {
+
+  };
+
 
 
   ball.prototype.toRadians = function(angle) {

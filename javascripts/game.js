@@ -107,7 +107,6 @@
     var yMax = Math.max(segStart[1], segEnd[1]);
     var yMin = Math.min(segStart[1], segEnd[1]);
     var xMax = Math.max(segStart[0], segEnd[0]);
-    debugger
     var upperLeft = [xMin, yMax];
     var lowerRight = [xMax, yMin];
     return [upperLeft, lowerRight];
@@ -116,14 +115,29 @@
   Game.prototype.boundingIntersects = function(seg1A, seg1B, seg2A, seg2B) {
     var a = this.createBoundingBox(seg1A, seg1B);
     var b = this.createBoundingBox(seg2A, seg2B);
-    debugger;
     return (a[0][0] <= b[1][0] &&
             a[1][0] >= b[0][0] &&
             a[0][1] >= b[1][1] &&
             a[1][1] <= b[0][1]);
   };
 
-
+  Game.prototype.lineIntersects = function(seg1A, seg1B, seg2A, seg2B) {
+    var x1 = seg1A[0], y1 = seg1A[1], x2 = seg1B[0], y2 = seg1B[1];
+    var x3 = seg2A[0], y3 = seg2A[1], x4 = seg2B[0], y4 = seg2B[1];
+    var denom = ((y4-y3) * (x2-x1)) - ((x4-x3) * (y2-y1));
+    if (denom !== 0) {  // Was !=
+      var ua = (((x4-x3) * (y1-y3)) - ((y4-y3) * (x1-x3))) / denom;
+      if ((ua >= 0) && (ua <= 1)) {
+        var ub = (((x2-x1) * (y1-y3)) - ((y2-y1) * (x1-x3))) / denom;
+        if ((ub >= 0) && (ub <= 1)) {
+          var x = x1 + (ua * (x2-x1));
+          var y = y1 + (ua * (y2-y1));
+          return { x: x, y: y };
+        }
+      }
+    }
+    return null;
+  },
 
 
 
