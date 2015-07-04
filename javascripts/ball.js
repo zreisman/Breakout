@@ -25,11 +25,7 @@
   };
 
   ball.prototype.normalizeTrajectory = function() {
-    if (this.trajectory > 360) { //this could probably just be mod op
-      this.trajectory -= 360;
-    } else if (this.trajectory < 1) {
-      this.trajectory += 360;
-    }
+    this.trajectory = this.trajectory % 360;
   };
 
   ball.prototype.edgePaths = function() {
