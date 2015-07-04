@@ -50,6 +50,23 @@
       var deflection = (skew - (Game.paddle.paddleSize / 2));
       Game.ball.bounce(topEdge, deflection);
     }
+
+    // Detect brick collisions
+    that.bricks.forEach(function(row) {
+      for(var i = 0; i < row.length; i++) {
+        var brick = row[i];
+        if (that.boundingIntersects(brick.vertA, brick.vertC, ballPath[0], ballPath[1])) {
+          brick.segments.forEach(function(seg) {
+            var intersect = that.lineIntersects(seg[0], seg[1], ballPath[0], ballPath[1]);
+            if (intersect) {
+              Game.ball.bounce(seg, 0);
+              row.splice(i, 1);
+            }
+
+          })
+        }
+      }
+    })
   };
 
   Game.prototype.distanceBetween = function(A, B) {
