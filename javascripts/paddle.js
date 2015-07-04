@@ -6,7 +6,7 @@
   Breakout.paddle = function (paddleStart) {
     this.paddleSize = 200;
     this.position = paddleStart;
-    // this.position[0] -= (this.paddleSize / 2);
+    this.position[0] -= (this.paddleSize / 2); //Center the paddle
 
   };
 

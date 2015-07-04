@@ -8,7 +8,7 @@
     this.position = [150, 500];
     this.radius = 10;
     this.velocity = 10;
-    this.trajectory = -45;  // 0 is East, -45 is Northeast
+    this.trajectory = 270;  // 0 is East, -45 is Northeast
   };
 
   ball.prototype.bounce = function(axis, deflection) {
@@ -25,11 +25,44 @@
   };
 
   ball.prototype.normalizeTrajectory = function() {
-    if (this.trajectory > 360) {
+    if (this.trajectory > 360) { //this could probably just be mod op
       this.trajectory -= 360;
     } else if (this.trajectory < 1) {
       this.trajectory += 360;
     }
+  };
+
+  ball.prototype.edgePaths = function() {
+
+    var centerPath = this.futurePath();
+    var start = centerPath[0];
+    var end = centerPath[1];
+
+    var angle1 = this.trajectory - 90;
+    var angle2 = this.trajectory + 90;
+
+    var path1 = [
+      [
+       start[0] + (this.radius * Math.cos(angle1)),
+       start[1] + (this.radius * Math.sin(angle1))
+      ],
+      [
+       end[0] + (this.radius * Math.cos(angle1)),
+       end[1] + (this.radius * Math.sin(angle1))
+      ]
+    ];
+
+    var path2 = [
+      [
+       start[0] + (this.radius * Math.cos(angle2)),
+       start[1] + (this.radius * Math.sin(angle2))
+      ],
+      [
+       end[0] + (this.radius * Math.cos(angle2)),
+       end[1] + (this.radius * Math.sin(angle2))
+      ]
+    ];
+    return [path1, path2];
   };
 
   ball.prototype.futurePath = function() {
