@@ -5,10 +5,10 @@
 
 
   var ball = Breakout.ball = function (paddle) {
-    var paddlePos = paddle.position;
-    this.position = [paddlePos[0] + 100, paddlePos[1] - 5];
     this.radius = 10;
     this.velocity = 10;
+    var paddlePos = paddle.position;
+    this.position = [paddlePos[0] + 100, paddlePos[1] - this.radius];
     this.trajectory = 270;  // 0 is East, -45 is Northeast
     this.paddle = paddle;
     this.fired = false;
@@ -88,7 +88,7 @@
   ball.prototype.move = function() {
     if (!this.fired) {
       var paddlePos = this.paddle.position;
-      this.position = [paddlePos[0] + 100, paddlePos[1] - 5];
+      this.position = [paddlePos[0] + 100, paddlePos[1] - this.radius];
       return;
     } else if (!this.bouncing) {
       var stepResult = this.step();
