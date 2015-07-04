@@ -6,12 +6,23 @@
   Breakout.paddle = function (paddleStart) {
     this.paddleSize = 200;
     this.position = paddleStart;
-    this.position[0] -= (this.paddleSize / 2);
+    // this.position[0] -= (this.paddleSize / 2);
+
   };
 
   Breakout.paddle.prototype.move = function(newX) {
     this.lastPos = this.position[0];
     this.position[0] = newX - (this.paddleSize / 2);
+  };
+
+  Breakout.paddle.prototype.topEdge = function() {
+    var tr = [this.position[0] + this.paddleSize, this.position[1]];
+    return [this.position, tr];
+  };
+
+  Breakout.paddle.prototype.space = function() {
+    var tr = [this.position[0] + this.paddleSize, this.position[1]];
+    return [this.position, [tr[0], tr[1] - 20]];
   };
 
   Breakout.paddle.prototype.draw = function (ctx) {
@@ -21,6 +32,9 @@
     ctx.beginPath();
     ctx.rect(this.position[0], this.position[1], this.paddleSize, 20);
     ctx.closePath();
+    ctx.lineWidth=1;
+    ctx.closePath();
+    ctx.stroke();
     ctx.fill();
   };
 

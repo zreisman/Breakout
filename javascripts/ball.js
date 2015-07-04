@@ -5,25 +5,23 @@
 
 
   var ball = Breakout.ball = function () {
-    this.position = [200, 500];
+    this.position = [150, 500];
     this.radius = 10;
-    this.velocity = 5;
-    this.trajectory = -45;
+    this.velocity = 10;
+    this.trajectory = -45;  // 0 is East, -45 is Northeast
   };
 
   ball.prototype.bounce = function(axis, deflection) {
-    if (axis === 'xAxis') {
+    this.bouncing = true;
+    if (axis[0][1] === axis[1][1]) {
       this.trajectory *= -1;
-    } else if(axis === 'yAxis') {
+    } else if(axis[0][0] === axis[1][0]) {
       this.trajectory = 90 + (90 - this.trajectory);
     }
     this.normalizeTrajectory();
-    if (deflection && this.trajectory >= 225 && this.trajectory <= 315) {
-      deflection_value = Math.floor(deflection / 3);
-      console.log('deflecting' + deflection_value);
-      this.trajectory += deflection_value;
+    if (deflection) {
+      this.trajectory = 270 + deflection / 2;
     }
-      console.log(this.trajectory);
   };
 
   ball.prototype.normalizeTrajectory = function() {
@@ -52,10 +50,13 @@
   };
 
   ball.prototype.move = function() {
-    var stepResult = this.step();
-    var xMod = stepResult[0], yMod = stepResult[1];
-    this.position[0] += xMod;
-    this.position[1] += yMod;
+    if (!this.bouncing) {
+      var stepResult = this.step();
+      var xMod = stepResult[0], yMod = stepResult[1];
+      this.position[0] += xMod;
+      this.position[1] += yMod;
+    }
+    this.bouncing = false;
   };
 
   Breakout.ball.prototype.draw = function (ctx) {
