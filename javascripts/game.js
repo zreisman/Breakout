@@ -11,7 +11,7 @@
   Game.FPS = 60;
   Game.paddleStart = [Math.floor(Game.DIM_X / 2), Math.floor(Game.DIM_Y - 50)];
   Game.paddle = new Breakout.paddle(Game.paddleStart);
-  Game.ball = new Breakout.ball();
+  Game.ball = new Breakout.ball(Game.paddle);
   Game.leftWall = [[50, Game.DIM_Y - 60], [50, 50]];
   Game.topWall = [[50, 50], [Game.DIM_X - 50, 50]];
   Game.rightWall = [[Game.DIM_X - 50, 50], [Game.DIM_X - 50, Game.DIM_Y - 60]];

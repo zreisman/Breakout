@@ -15,6 +15,11 @@
     window.addEventListener('mousemove', function(e) {
        Breakout.Game.paddle.move(e.clientX);
     });
+    window.addEventListener('keyup', function(e) {
+      if (e.keyCode === 32) {
+        Breakout.Game.ball.fire();
+      }
+    });
   };
 
   GameView.prototype.start = function () {

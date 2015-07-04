@@ -4,11 +4,14 @@
   }
 
 
-  var ball = Breakout.ball = function () {
-    this.position = [150, 500];
+  var ball = Breakout.ball = function (paddle) {
+    var paddlePos = paddle.position;
+    this.position = [paddlePos[0] + 100, paddlePos[1] - 5];
     this.radius = 10;
     this.velocity = 10;
     this.trajectory = 270;  // 0 is East, -45 is Northeast
+    this.paddle = paddle;
+    this.fired = false;
   };
 
   ball.prototype.bounce = function(axis, deflection) {
@@ -78,8 +81,16 @@
     return angle * (Math.PI / 180);
   };
 
+  ball.prototype.fire = function() {
+    this.fired = true;
+  };
+
   ball.prototype.move = function() {
-    if (!this.bouncing) {
+    if (!this.fired) {
+      var paddlePos = this.paddle.position;
+      this.position = [paddlePos[0] + 100, paddlePos[1] - 5];
+      return;
+    } else if (!this.bouncing) {
       var stepResult = this.step();
       var xMod = stepResult[0], yMod = stepResult[1];
       this.position[0] += xMod;
