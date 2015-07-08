@@ -116,21 +116,24 @@
 
   Game.prototype.createBricks = function() {
     var rows = 3;
-    var brickSize = Math.floor((Game.DIM_X - 120) / 20);
-    var startPos = 60;
+    var playArea = Game.DIM_X - 110;
+    var brickSize = Math.floor(playArea / 19);
+    var offset = (playArea - (brickSize * 19)) / 2;
+    var startPos = 55 + offset;
     var height = 100;
     this.bricksTop = height - Game.ball.radius;
     this.bricksBottom = height + rows * 50 + (brickSize / 2);
     this.bricks = [];
     for (var i = 1; i <= rows; i++) {
       var row = [];
+      var brickY = (height + (i * ((brickSize/2) + 2)));
       for(var j = 1; j < 20 - 1 + (i % 2); j++) {
-        var brick = new Breakout.Brick(brickSize, [startPos, height + i * 50]);
+        var brick = new Breakout.Brick(brickSize, [startPos, brickY]);
         row.push(brick);
-        startPos += brickSize + 5;
+        startPos += brickSize;
       }
       this.bricks.push(row);
-      startPos = 60 + ((i % 2) * (brickSize / 2));
+      startPos = 55 + offset + ((i % 2) * (brickSize / 2));
     }
   };
 

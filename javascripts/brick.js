@@ -64,7 +64,7 @@
 
   Brick.prototype.render = function(ctx) {
     //draw this on the canvas
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "#4D0000";
     ctx.beginPath();
     ctx.rect(this.vertA[0], this.vertA[1], this.brickSize[0], this.brickSize[1]);
     ctx.closePath();
