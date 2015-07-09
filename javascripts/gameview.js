@@ -29,11 +29,13 @@
     this.timerId = setInterval(
       function () {
 
-        // gameView.game.startDetection();
-        // gameView.game.detectCollision();
+
         gameView.game.detectCollisions();
         gameView.game.step();
         gameView.game.draw(gameView.ctx);
+        if (!Breakout.Game.ball.fired) {
+          gameView.game.instructions(gameView.ctx);
+        }
         if (gameView.game.detectLoss()) {
           gameView.stop();
         }

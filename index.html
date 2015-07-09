@@ -1,10 +1,13 @@
 <html>
  <head>
  <title>Breakout</title>
+ <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
  <script src="javascripts/vendor/jquery-1.11.3.js"></script>
  </head>
  <body>
    <style>
+     font-family: 'Press Start 2P', cursive;
+
     .FirstCanvas{
       border: 3px solid black;
       background-color: lightgray;
@@ -18,18 +21,20 @@
    <script src="javascripts/gameview.js"></script>
 
    <script>
-     // Create the canvas
-     var canvas = document.createElement("canvas");
-     var ctx = canvas.getContext("2d");
-     canvas.width = Breakout.Game.DIM_X;
-     canvas.height = Breakout.Game.DIM_Y;
-     document.body.appendChild(canvas);
-     $('canvas').addClass('FirstCanvas').attr('id', 'first-canvas');
+     $(document).ready(function(){
+       // Create the canvas
+       var canvas = document.createElement("canvas");
+       var ctx = canvas.getContext("2d");
+       canvas.width = Breakout.Game.DIM_X;
+       canvas.height = Breakout.Game.DIM_Y;
+       document.body.appendChild(canvas);
+       $('canvas').addClass('FirstCanvas').attr('id', 'first-canvas');
 
 
-     var game = new Breakout.Game()
-     var gameView = new Breakout.GameView(game, ctx);
-     gameView.start();
+       var game = new Breakout.Game()
+       var gameView = new Breakout.GameView(game, ctx);
+       gameView.start();
+     });
    </script>
  </body>
 </html>
