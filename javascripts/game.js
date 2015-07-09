@@ -155,9 +155,9 @@
   };
 
   Game.prototype.instructions = function(ctx) {
-    ctx.font = "60px PressStart2P-cursive";
+    ctx.font = "60px VT323";
     ctx.fillStyle = 'white';
-    ctx.fillText("Space to begin",Game.DIM_X / 2 - 200, Game.DIM_Y / 2);
+    ctx.fillText("Press Space",Game.DIM_X / 2 - 200, Game.DIM_Y / 2);
 
   };
 
@@ -175,9 +175,9 @@
   };
 
   Game.prototype.endGame = function(ctx) {
-    ctx.font = "60px Arial";
+    ctx.font = "60px VT323";
     ctx.fillStyle = 'white';
-    ctx.fillText("Game Over!",Game.DIM_X / 2 - 200, Game.DIM_Y / 2);
+    ctx.fillText("Game Over!",Game.DIM_X / 2 - 150, Game.DIM_Y / 2);
   };
 
   Game.prototype.step = function() {
